@@ -7,3 +7,6 @@ def home(request):
 
 def login(request):
     return HttpResponse("""<h3>Login</h3>""")
+
+def logon(request, username):
+    return render(request, 'logon.html', {'username': username})
