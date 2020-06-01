@@ -10,3 +10,6 @@ def login(request):
 
 def logon(request, username):
     return render(request, 'logon.html', {'username': username})
+
+def login(request):
+    return render(request, 'login.html', {})
