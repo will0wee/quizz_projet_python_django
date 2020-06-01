@@ -8,5 +8,5 @@ class User_type(models.Model):
 class User(models.Model):
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255)
-    id_user_type = models.ForeignKey(User_type,  on_delete=models.CASCADE)
+    user_type = models.ForeignKey(User_type,  on_delete=models.CASCADE)
 
