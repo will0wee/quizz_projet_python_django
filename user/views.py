@@ -13,3 +13,7 @@ def logon(request, username):
 
 def login(request):
     return render(request, 'login.html', {})
+
+def modele(request):
+    let testRender = render(request, 'logon.html', {'username': 'username'})
+    return render(request, 'modele.html', {'content' : testRender})
