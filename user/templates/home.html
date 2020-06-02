@@ -1,26 +1,16 @@
 {% load static %}
 
-<!DOCTYPE html>
-<html>
+{% include "navigation.html" %}
 
-    <head>
-        <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="row  border-bottom white-bg dashboard-header">
+    <a href="{{BannerHref}}">{{Banner}}</a>
+</div>
+<div class="wrapper wrapper-content">
 
-    <title>Bienvenue</title>
+    <div class="col-lg-3"></div>
+    <div class="col-lg-8">
 
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet">
-
-    <link href="{% static 'css/plugins/iCheck/custom.css' %}" rel="stylesheet">
-    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    </head>
-
-
-<div class="col-lg-6">
-
-    {% if False %} <!-- cas de l'affichage de la HomePage de l'élève-->
+    {% if True %} <!-- cas de l'affichage de la HomePage de l'élève-->
 
 <div class="col-lg-4">
     <div class="widget navy-bg p-lg text-center">
@@ -101,7 +91,7 @@
 {% endif %}
 
 
-{% if True %} <!-- cas de l'affichage de la HomePage du professeur-->
+{% if False %} <!-- cas de l'affichage de la HomePage du professeur-->
 
 <div class="col-lg-12">
     
@@ -137,4 +127,9 @@
 
 </div>
 
+    <div class="col-lg-1">
+    </div>
+    </div>
+
+{% include "footer.html" %}
 </html>

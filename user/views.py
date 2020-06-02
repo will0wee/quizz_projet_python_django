@@ -3,7 +3,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    return HttpResponse("""<h1>Home sweet home</h1>""")
+    ## Si user pas connecté alors retourner login
+    return render(request, 'home.html', {'Banner' : "HomePage", 'BannerHref' : ""})
 
 def login(request):
     return HttpResponse("""<h3>Login</h3>""")
@@ -15,5 +16,4 @@ def login(request):
     return render(request, 'login.html', {})
 
 def modele(request):
-    let testRender = render(request, 'logon.html', {'username': 'username'})
-    return render(request, 'modele.html', {'content' : testRender})
+    return render(request, 'modele.html', {'content' : render_to_response()})
