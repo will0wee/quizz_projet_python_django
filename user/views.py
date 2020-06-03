@@ -17,9 +17,7 @@ def login(request):
 
 def modele(request):
     return render(request, 'modele.html', {'content' : render_to_response()})
-<<<<<<< HEAD
-
+    
 def profile(request):
     return render(request, 'profile.html', {})
-=======
->>>>>>> 053f8545f93450d3bb682c522d766521ef3c73a2
+
