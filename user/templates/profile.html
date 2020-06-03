@@ -1,0 +1,94 @@
+{% load static %}
+
+{% include "navigation.html" %}
+<div class="wrapper wrapper-content">
+<div class="row  border-bottom white-bg dashboard-header">
+    <a href="{{BannerHref}}">{{Banner}}</a>
+</div>
+<div class="wrapper wrapper-content">
+
+    <div class="col-lg-2"></div>
+    <div class="col-lg-10">
+
+
+
+
+<div class="row m-b-lg m-t-lg">
+    <div class="col-md-10">
+
+            
+                <div class="ibox-title">
+                    <h5>Vos informations</h5>
+                </div> 
+                <div class="ibox-content">
+                    <form>
+                        <div class="form-group row"><label class="col-lg-2 col-form-label">Prénom</label>
+
+                            <div class="col-lg-10"><input type="text" placeholder="Prénom" class="form-control"> <span class="form-text m-b-none"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row"><label class="col-lg-2 col-form-label">Nom</label>
+
+                            <div class="col-lg-10"><input type="text" placeholder="Nom" class="form-control"> <span class="form-text m-b-none"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row"><label class="col-lg-2 col-form-label">Email</label>
+
+                            <div class="col-lg-10"><input type="email" placeholder="Email" class="form-control"> <span class="form-text m-b-none"></span>
+                            </div>
+                        </div>                                             
+                        <div class="form-group row">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Valider les modifications</button>                                
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                                        Modifier le mot de passe
+                                    </button>                               
+                                <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+                                                <h4 class="modal-title">Modifier le mot de passe</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="m-t" role="form" action="">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Ancien mot de passe" required="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Nouveau mot de passe" required="">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Repetez le mot de passe" required="">
+                                                    </div>
+                                                </form>        
+                                            </div>
+                            
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">Fermer</button>
+                                                <button type="button" class="btn btn-primary">Sauvegarder la modification</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            
+        
+        </div>
+    </div>
+    
+        
+
+    </div>
+</div>
+</div>
+</div>
+
+
+
+ {% include "footer.html" %}
+</html>
