@@ -17,9 +17,3 @@ def login(request):
 
 def modele(request):
     return render(request, 'modele.html', {'content' : render_to_response()})
-
-def classroom(request):
-    return render(request, 'classroom.html',{'Banner' : "HomePage", 'BannerHref' : ""})
-
-def details_classroom(request):
-    return render(request, 'details_classroom.html',{'Banner' : "HomePage", 'BannerHref' : ""})
