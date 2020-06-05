@@ -1,0 +1,72 @@
+{% load static %}
+
+{% include "navigation.html" %}
+
+<div class="row  border-bottom white-bg dashboard-header">
+    <a href="{{BannerHref}}">{{Banner}}</a>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox ">
+        <div class="ibox-content">
+            <h2>
+                Détail du quizz <span class="text-navy">“Quizz {{idQuizz}}”</span>
+            </h2>
+
+            <div class="search-form">
+            </div>
+            <div class="hr-line-dashed"></div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                    <th>Reponse</th>
+                    <th>Valeur</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><span class="line">De quelle couleur est le cheval blanc d'Henry IV?</span></td>
+                    <td>Vert</td>
+                    <td class="text-warning"> FAUX </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><span class="line">2 + 2</span></td>
+                    <td>4</td>
+                    <td class="text-navy">  VRAI </td>
+                </tr>
+                <tr>
+                    
+                    <td rowspan="2">3</td>
+                    <td rowspan="2"><span class="line">Etes-vous chez Hitema?</span></td>
+                    <td>Oui</td>
+                    <td class="text-navy"> VRAI </td>
+                </tr>
+                <tr>
+                    <td>Mais pas trop</td>
+                    <td class="text-navy"> VRAI </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="hr-line-dashed"></div>            
+        </div>
+    </div>
+
+
+    <div class="col-lg-3"></div>
+
+
+
+
+
+
+
+
+
+
+
+    {% include "footer.html" %}
+</html>
