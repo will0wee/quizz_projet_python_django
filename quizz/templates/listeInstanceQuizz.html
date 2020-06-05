@@ -4,7 +4,11 @@
 
 <div class="row  border-bottom white-bg dashboard-header">
     {% for element in banner %}
+    {% if element.id is not None %}
+    <a href='{% url element.url element.id %}'>{{element.libelle}}</a> /
+    {% else %}
     <a href='{% url element.url %}'>{{element.libelle}}</a> /
+    {% endif %}
     {% endfor %}
     <a href='#'>{{currentElement}}</a>
 </div>
@@ -37,7 +41,7 @@
                         <td>05/06/2020</td>
                         <td class="text-navy"> 16/20 </td>
                         <td>
-                            <a href='{% url "quizz_detail" 1 %}' class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
+                            <a href='{% url "quizz_detail" 1 %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
                         </td>
                     </tr>
                     <tr>
@@ -47,7 +51,7 @@
                         <td>05/06/2020</td>
                         <td class="text-navy">  19/20 </td>
                         <td>
-                            <a href='{% url "quizz_detail" 2 %}' class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
+                            <a href='{% url "quizz_detail" 2 %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
                         </td>
                     </tr>
                     <tr>
@@ -58,14 +62,14 @@
                         <td>05/06/2020</td>
                         <td class="text-warning"> 06/20 </td>
                         <td>
-                            <a href='{% url "quizz_detail" 3 %}' class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
+                            <a href='{% url "quizz_detail" 3 %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
                         </td>
                     </tr>
                     <tr>
                         <td>08/06/2020</td>
                         <td class="text-navy"> 15/20 </td>
                         <td>
-                            <a href='{% url "quizz_detail" 4 %}' class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
+                            <a href='{% url "quizz_detail" 4 %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
                         </td>
                     </tr>
                     </tbody>

@@ -1,65 +1,59 @@
 {% load static %}
 
-{% include "navigation.html" %}
+{% include "navigation.html" with navigationClassRoomActive=navigation %}
 
 <div class="row  border-bottom white-bg dashboard-header">
-    <a href="{{BannerHref}}">{{Banner}}</a>
+    {% for element in banner %}
+    {% if element.id is not None %}
+    <a href='{% url element.url element.id %}'>{{element.libelle}}</a> /
+    {% else %}
+    <a href='{% url element.url %}'>{{element.libelle}}</a> /
+    {% endif %}
+    {% endfor %}
+    <a href='#'>{{currentElement}}</a>
 </div>
 <div class="wrapper wrapper-content">
 
-    <div class="col-lg-3"></div>
-
     <div class="row">
-        <div class="col-lg-6">
-            <div class="ibox ">
-                <div class="ibox-title">
-                    <h5>Classrooms</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Classroom Name</th>
-                            <th>Number of students</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Classroom 1 </td>
-                            <td>27</td>
-                            <td><button class="btn btn-danger  dim " type="button"> Delete </button><button class="btn btn-success  dim" type="button">Details</i></button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Classroom 2 </td>
-                            <td>16</td>
-                            <td><button class="btn btn-danger  dim " type="button"> Delete </button><button class="btn btn-success  dim" type="button">Details</i></button></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div style="text-align: center" ><button class="btn btn-primary dim" type="button">Add a classroom</button></div>
-
-                </div>
+         <div class="ibox ">
+            <div class="ibox-content">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th width="50%">Nom de la classe</th>
+                        <th width="30%">Nombre d'élèves</th>
+                        <th width="20%" class="text-right">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Classroom 1 </td>
+                        <td>27</td>
+                        <td align="right">
+                            <a href='{% url "detailClassRoom" 1 %}' class="btn btn-success btn-circle" type="button"><i class="fa fa-search"></i></a>
+                            <a class="btn btn-danger btn-circle" type="button"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Classroom 2 </td>
+                        <td>16</td>
+                        <td align="right">
+                            <a href='{% url "detailClassRoom" 2 %}' class="btn btn-success btn-circle" type="button"><i class="fa fa-search"></i></a>
+                            <a class="btn btn-danger btn-circle" type="button"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="text-align: center" ><button class="btn btn-primary" type="button">Add a classroom</button></div>
             </div>
-        </div>
+
+         </div>
+
     </div>
+</div>
 
 
 
-    <div class="col-lg-1">
-    </div>
 </div>
 
 {% include "footer.html" %}
