@@ -1,16 +1,21 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from .forms import LoginForm
 
 # Create your views here.
 def home(request):
     ## Si user pas connecté alors retourner login
     return render(request, 'home.html', {'Banner' : "HomePage", 'BannerHref' : ""})
 
-def login(request):
-    return HttpResponse("""<h3>Login</h3>""")
-
 def logon(request, username):
     return render(request, 'logon.html', {'username': username})
+
+def login2(request):
+    form = LoginForm(request.POST or None)
+    if form.is_valid():
+        #login()
+        redirect('home')
+
+    return render(request, 'login2.html', {})
 
 def login(request):
     return render(request, 'login.html', {})

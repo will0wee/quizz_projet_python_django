@@ -19,8 +19,8 @@ from user import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
-    path('login', views.login),
+    path('', views.home, name='home'),
+    path('login', views.login, name='login'),
     path('user/', include('user.urls')),
     path('classe/', include('classe.urls')),
     path('quizz/', include('quizz.urls')),
