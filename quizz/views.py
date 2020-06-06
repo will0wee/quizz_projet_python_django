@@ -19,3 +19,9 @@ def instancesQuizz(request, idQuizz):
         {'libelle': "Home", 'url': "home"}
     ]
     return render(request, 'listeInstanceQuizz.html', {'idQuizz': idQuizz, 'banner': banner, 'currentElement': 'Liste des instance de quizz'})
+
+def add(request):
+    banner = [
+        {'libelle': "Home", 'url': "home"}
+    ]
+    return render(request, 'add_quizz.html', { 'banner': banner, 'currentElement': 'Ajout d un quizz'})
