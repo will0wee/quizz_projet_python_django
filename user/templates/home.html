@@ -3,7 +3,14 @@
 {% include "navigation.html" %}
 
 <div class="row  border-bottom white-bg dashboard-header">
-    <a href="{{BannerHref}}">{{Banner}}</a>
+    {% for element in banner %}
+    {% if element.id is not None %}
+    <a href='{% url element.url element.id %}'>{{element.libelle}}</a> /
+    {% else %}
+    <a href='{% url element.url %}'>{{element.libelle}}</a> /
+    {% endif %}
+    {% endfor %}
+    <a href='#'>{{currentElement}}</a>
 </div>
 <div class="wrapper wrapper-content">
 
