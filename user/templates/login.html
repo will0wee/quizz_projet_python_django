@@ -32,15 +32,18 @@
                 <!--Continually expanded and constantly improved vendor Admin Them (IN+)-->
             </p>
             <p>Connectez-vous pour participer.</p>
-            <form class="m-t" role="form" action="index.html">
+            <form class="m-t" role="form" action='{% url "login" %}' method="POST">
+                 {% csrf_token %}
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Username" required="">
+                    {{ form.username }}
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="">
+                    {{ form.password }}
                 </div>
+                {% if msg is not None %}
+                <div class="alert alert-danger">{{msg}}</div>
+                {% endif %}
                 <button type="submit" class="btn btn-primary block full-width m-b">Connexion</button>
-
             </form>
         </div>
     </div>

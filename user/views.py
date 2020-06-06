@@ -1,28 +1,33 @@
 from django.shortcuts import render, redirect
+from .authenticator import Authenticator
 from .forms import LoginForm
 
 # Create your views here.
 def home(request):
-    ## Si user pas connecté alors retourner login
+    if request.session['userId'] is None:
+        redirect('login')
     return render(request, 'home.html', {'Banner' : "HomePage", 'BannerHref' : ""})
 
-def logon(request, username):
-    return render(request, 'logon.html', {'username': username})
-
-def login2(request):
+def login(request):
     form = LoginForm(request.POST or None)
     if form.is_valid():
-        #login()
-        redirect('home')
+        auth = Authenticator()
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        if(auth.authenticate(request, username, password)):
+            return redirect('home')
+        else:
+            msg = "Mauvais nom d'utilisateur/mot de passe"
+    else:
+        if request.method == 'POST':
+            msg = "Veuillez remplir tous les champs correctements"
+    return render(request, 'login.html', locals())
 
-    return render(request, 'login2.html', {})
-
-def login(request):
-    return render(request, 'login.html', {})
-
-def modele(request):
-    return render(request, 'modele.html', {'content' : render_to_response()})
-    
 def profile(request):
-    return render(request, 'profile.html', {})
+    if request.session['userId'] is None:
+        redirect('login')
+    banner = [
+        {'libelle': "Home", 'url': "home"}
+    ]
+    return render(request, 'profile.html', {'navigation': 'active', 'banner': banner, 'currentElement': 'Détail du compte'})
 
