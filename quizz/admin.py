@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Quizz, Instance_quizz, Question, Reponse_possible, Reponse
+from .models import Quizz, Instance_quizz, Question, Reponse_possible, Reponse, DemandeQuizz
 
 class QuizzAdmin(admin.ModelAdmin):
     list_display = ('professeur', 'libelle')
@@ -37,3 +37,4 @@ admin.site.register(Instance_quizz, Instance_quizzAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Reponse_possible, Reponse_possibleAdmin)
 admin.site.register(Reponse, ReponseAdmin)
+admin.site.register(DemandeQuizz)

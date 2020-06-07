@@ -7,7 +7,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    if request.session['userId'] is None:
+    if request.session.get('userId', 0) == 0:
         redirect('login')
     return render(request, 'home.html', {'currentElement': 'Acceuil', 'user': {'userFirstName': request.session.get('userFirstName'), 'userLastName': request.session.get('userLastName'), 'userTypeLibelle': request.session.get('userTypeLibelle', 'test')}})
 

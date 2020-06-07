@@ -1,0 +1,41 @@
+{% load static %}
+
+{% include "navigation.html" %}
+
+<div class="row  border-bottom white-bg dashboard-header">
+    {% for element in banner %}
+    {% if element.id is not None %}
+    <a href='{% url element.url element.id %}'>{{element.libelle}}</a> /
+    {% else %}
+    <a href='{% url element.url %}'>{{element.libelle}}</a> /
+    {% endif %}
+    {% endfor %}
+    <a href='#'>{{currentElement}}</a>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox ">
+        <div class="ibox-content">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Quizz</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for element in data.lstQuizz %}
+                    <tr>
+                        <td><span class="line">{{element.libelle}}</span></td>
+                        <td>
+                            <a href='{% url "faire_quizz" element.id %}' title="faire" class="btn btn-circle btn-success"><i class="fa fa-pencil"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+ {% include "footer.html" %}
+</html>
