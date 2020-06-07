@@ -26,8 +26,8 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                         <a href='{% url "profilUtilisateur" %}'>
-                            <span class="block m-t-xs font-bold">David Williams</span>
-                            <span class="text-muted text-xs block">Art Director</span>
+                            <span class="block m-t-xs font-bold">{{user.userFirstName}} {{user.userLastName}}</span>
+                            <span class="text-muted text-xs block">{{user.userTypeLibelle}}</span>
                         </a>
                     </div>
                     <div class="logo-element">

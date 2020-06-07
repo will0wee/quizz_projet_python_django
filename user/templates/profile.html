@@ -13,85 +13,85 @@
     <a href='#'>{{currentElement}}</a>
 </div>
 <div class="wrapper wrapper-content">
-
     <div class="col-lg-2"></div>
     <div class="col-lg-10">
-
-
-
-
-<div class="row m-b-lg m-t-lg">
-    <div class="col-md-10">
-
-            
+        <div class="row m-b-lg m-t-lg">
+            <div class="col-md-10">
                 <div class="ibox-title">
                     <h5>Vos informations</h5>
-                </div> 
+                </div>
+                {% if msg is not None %}
+                <div class="alert alert-danger">{{msg}}</div>
+                {% endif %}
                 <div class="ibox-content">
-                    <form>
-                        <div class="form-group row"><label class="col-lg-2 col-form-label">Prénom</label>
-
-                            <div class="col-lg-10"><input type="text" placeholder="Prénom" class="form-control"> <span class="form-text m-b-none"></span>
+                    <form class="m-t" role="form" action='{% url "profilUtilisateur" %}' method="POST">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Prénom</label>
+                            <div class="col-lg-10">
+                                {{ form.first_name }}
                             </div>
                         </div>
-                        <div class="form-group row"><label class="col-lg-2 col-form-label">Nom</label>
-
-                            <div class="col-lg-10"><input type="text" placeholder="Nom" class="form-control"> <span class="form-text m-b-none"></span>
+                        <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Nom</label>
+                            <div class="col-lg-10">
+                                {{ form.last_name }}
                             </div>
                         </div>
-                        <div class="form-group row"><label class="col-lg-2 col-form-label">Email</label>
-
-                            <div class="col-lg-10"><input type="email" placeholder="Email" class="form-control"> <span class="form-text m-b-none"></span>
+                        <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Nom d'utilisateur</label>
+                            <div class="col-lg-10">
+                                {{ form.username }}
                             </div>
-                        </div>                                             
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-2 col-form-label">Email</label>
+                            <div class="col-lg-10">
+                                {{ form.email }}
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button class="btn btn-sm btn-blue" type="submit">Valider les modifications</button>                                
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
-                                        Modifier le mot de passe
-                                    </button>                               
-                                <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
-                                                <h4 class="modal-title">Modifier le mot de passe</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="m-t" role="form" action="">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Ancien mot de passe" required="">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Nouveau mot de passe" required="">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Repetez le mot de passe" required="">
-                                                    </div>
-                                                </form>        
-                                            </div>
-                            
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-white" data-dismiss="modal">Fermer</button>
-                                                <button type="button" class="btn btn-primary">Sauvegarder la modification</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button class="btn btn-sm btn-blue" type="submit">Valider les modifications</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                                    Modifier le mot de passe
+                                </button>
                             </div>
                         </div>
-                        
                     </form>
                 </div>
-            
-        
+            </div>
         </div>
     </div>
-    
-        
-
-    </div>
 </div>
+</div>
+<div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+                <h4 class="modal-title">Modifier le mot de passe</h4>
+            </div>
+            <div class="modal-body">
+                <form class="m-t" role="form" action="">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Ancien mot de passe" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Nouveau mot de passe" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Repetez le mot de passe" required="">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary">Sauvegarder la modification</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
