@@ -33,9 +33,13 @@
                                     <div class="panel-body">
 
                                         <div class="form-group row">
-
-                                            <div class="col-lg-4"><input type="text" placeholder="Libellé" class="form-control" autocomplete="off"></div>
-                                            <button type="button" class="btn btn-w-m btn-primary">Enregistrer</button>
+                                            <form class="m-t" role="form" action='{% url "add_quizz" idQuizz %}' method="POST">
+                                                {% csrf_token %}
+                                                 <div class="form-group">
+                                                    {{ form.libelle }}
+                                                </div>
+                                                <button type="button" name="submitQuizz" class="btn btn-w-m btn-primary">Enregistrer</button>
+                                            </form>
                                         </div>
 
 
@@ -44,9 +48,13 @@
                                 <div role="tabpanel" id="tab-2" class="tab-pane">
                                     <div class="panel-body">
                                         <div class="form-group row">
-
-                                            <div class="col-lg-4"><input type="text" placeholder="Question" class="form-control" autocomplete="off"></div>
-                                            <button type="button" class="btn btn-w-m btn-primary">Enregistrer</button>
+                                            <form class="m-t" role="form" action='{% url "add_quizz" idQuizz %}' method="POST">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    {{ formQuestion.libelle }}
+                                                </div>
+                                                <button type="submit" name="submitQuestion" class="btn btn-w-m btn-primary">Enregistrer</button>
+                                            </form>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="ibox ">
@@ -56,8 +64,9 @@
                                                     <table class="table">
                                                         <tbody>
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Quelle est la couleur du cheval blanc d'Henri IV ? </td>
+                                                            {% for n in questions %}
+                                                            <li>{{ n.libelle }} {{ n.quizz_id }}</li>
+                                                            {% endfor %}
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -81,9 +90,14 @@
                                             <div class="form-group row">
 
                                                 <div class="col-lg-8"><input type="text" placeholder="Votre réponse" class="form-control" autocomplete="off"></div>
-                                                <button type="button" class="btn btn-w-m btn-primary">Ajouter</button>
+
+                                                <div class="i-checks"><label> <input type="radio" value="option1" name="a"> <i></i> VRAI </label>
+                                                    <label><input type="radio" value="option1" name="a"> <i></i> FAUX </label>
+                                                </div>
                                             </div>
-                                            <br>
+                                            <div style="text-align: center"><button type="button" class="btn btn-block btn-outline btn-primary">Ajouter</button></div>
+                                             <br>
+                                            <div class="hr-line-dashed"></div>
                                         <div class="col-lg-6">
                                             <div class="ibox ">
                                                 <h5> Vos réponses</h5>
@@ -92,18 +106,7 @@
                                                     <table class="table">
                                                         <tbody>
                                                         <tr>
-                                                            <td>Blanc</td>
-                                                            <td><select class="form-control m-b" >
-                                                                <option>Faux</option>
-                                                                <option>Vrai</option>
-                                                            </select></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Blanc privilégié</td>
-                                                            <td><select class="form-control m-b" >
-                                                                <option>Faux</option>
-                                                                <option>Vrai</option>
-                                                            </select></td>
+
                                                         </tr>
                                                         </tbody>
                                                     </table>

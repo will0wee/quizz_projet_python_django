@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from .authenticator import Authenticator
 from .forms import LoginForm
+from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    if request.session['userId'] is None:
-        redirect('login')
+    userId = request.session.get("userId", 0)
+    if request.session.get("userId", 0) == 0 :
+        return redirect("login")
     return render(request, 'home.html', {'Banner' : "HomePage", 'BannerHref' : ""})
 
 def login(request):
