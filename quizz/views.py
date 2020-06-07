@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import Quizz, DemandeQuizz, Instance_quizz
+from .models import Quizz, DemandeQuizz, Instance_quizz, Question
 from classe.models import Classe, Liste_classe
 from user.models import User_data
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
+from .forms import QuizzForm
+from .forms import QuestionForm
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -79,3 +82,30 @@ def homeQuizz(request):
 def deleteQuizz(request, idQuizz):
     Quizz.objects.filter(id=idQuizz).delete()
     return redirect('homeQuizz')
+
+def add(request, idQuizz = None):
+    banner = [
+        {'libelle': "Home", 'url': "home"}
+    ]
+    form = QuizzForm(request.POST or None)
+    if form.is_valid() and 'submitQuizz' in request.POST:
+        monQuizz = Quizz(libelle = form.cleaned_data['libelle'], professeur = User.objects.filter(id=request.session.get("userId"))[0])
+        monQuizz.save()
+        idQuizz = Quizz.objects.latest("id")
+        return redirect('add_quizz', idQuizz)
+    currentElement = "ajout d'un quizz"
+    quizzs = Quizz.objects.raw("SELECT * from quizz_quizz")
+
+
+    formQuestion = QuestionForm(request.POST or None)
+
+    if formQuestion.is_valid() and 'submitQuestion' in request.POST and idQuizz is not None :
+        maQuestion = Question(libelle = form.cleaned_data['libelle'], quizz = Quizz.objects.filter(id=idQuizz)[0])
+        maQuestion.save()
+    else:
+        if request.method == 'POST':
+            return HttpResponse("EUH SA MARCHE PO")
+    questions = Question.objects.raw("SELECT * from quizz_question")
+
+
+    return render(request, 'add_quizz.html', locals())
