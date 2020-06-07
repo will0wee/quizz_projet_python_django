@@ -16,7 +16,11 @@
     <div class="row">
         <div class="ibox ">
             <div class="ibox-content">
+                {% if classroomId is not None %}
                 <form class="m-t" role="form form-horizontal" action='{% url "listeClassRoom" classroomId %}' method="POST">
+                {% else %}
+                <form class="m-t" role="form form-horizontal" action='{% url "listeClassRoom" %}' method="POST">
+                {% endif %}
                     {% csrf_token %}
                     <div class="form-group">
                         <label class="col-lg-2 p-h-xs">{{ form.libelle.label }}</label>
