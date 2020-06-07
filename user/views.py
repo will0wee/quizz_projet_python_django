@@ -64,4 +64,3 @@ def profile(request):
             'userEmail': request.session.get('userEmail'),
             'userTypeLibelle': request.session.get('userTypeLibelle'), }
     return render(request, 'profile.html', locals())
-

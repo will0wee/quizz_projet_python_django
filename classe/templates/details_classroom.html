@@ -18,6 +18,10 @@
     <div class="row">
          <div class="ibox ">
             <div class="ibox-content">
+                <div>
+                    <h2>{{classroom.libelle}}</h2>
+                </div>
+                <div class="hr-line-dashed"></div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -29,35 +33,67 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% for element in classroomData %}
                         <tr>
-                            <td>KILAHY </td>
-                            <td>Erwann</td>
+                            <td>{{element.eleve.last_name}} </td>
+                            <td>{{element.eleve.first_name}}</td>
                             <td>Classroom1, Classroom2</td>
                             <td align="right">
-                                <a class="btn btn-danger btn-circle" type="button"><i class="fa fa-trash"></i></a>
+                                <a href='{% url "deleteStudent" classroom.id element.eleve.id %}' class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>POPIEL </td>
-                            <td>Damien</td>
-                            <td>Classroom1, Classroom2</td>
-                            <td align="right">
-                                <a class="btn btn-danger btn-circle" type="button"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>LAUNOY </td>
-                            <td>Nicolas</td>
-                            <td>Classroom1, Classroom2</td>
-                            <td align="right">
-                                <a class="btn btn-danger btn-circle" type="button"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
-                <div style="text-align: center" ><a class="btn btn-primary" >Ajouter un étudiant</a></div>
+                <div style="text-align: center" >
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjoutEleve">Ajouter un étudiant</button>
+                </div>
             </div>
          </div>
+    </div>
+</div>
+
+
+<div class="modal inmodal fade" id="modalAjoutEleve" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="m-t" role="form form-horizontal" id="eleveAjout" action='{% url "detailClassRoom" classroom.id %}' method="POST">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+                    <h4 class="modal-title">Ajouter un eleve à la classe</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Ajout</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eleve in eleveDispo %}
+                                <tr>
+                                    <td>
+                                        {{eleve.user.last_name}}
+                                    </td>
+                                    <td>
+                                        {{eleve.user.first_name}}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="eleve[{{eleve.user.id}}]">
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder la modification</button>
+            </div>
+            </form>
+        </div>
     </div>
 </div>
 
