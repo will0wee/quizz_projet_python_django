@@ -14,8 +14,12 @@ def home(request):
     lstInstance = Instance_quizz.objects.filter(eleve=User.objects.filter(id=request.session.get("userId"))[0]).select_related('quizz')
     lstResult = []
     for element in lstInstance:
-        data = {'max': len(Reponse.objects.filter(instance_quizz=element)),
-                'note': len(Reponse.objects.select_related('reponse').filter(reponse__valeur=1, instance_quizz=element)),
+        max = len(Reponse.objects.filter(instance_quizz=element))
+        if max == 0:
+            note = '-'
+        else:
+            note = len(Reponse.objects.select_related('reponse').filter(reponse__valeur=1, instance_quizz=element)) * 20 / max
+        data = {'note': note,
                 'instance': element}
         lstResult.append(data)
 
