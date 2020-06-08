@@ -32,9 +32,15 @@ class ReponseAdmin(admin.ModelAdmin):
     ordering = ('question', 'reponse')
     search_fields = ('question', 'reponse')
 
+class DemandeQuizzAdmin(admin.ModelAdmin):
+    list_display = ('quizz', 'eleve')
+    list_filter = ('quizz', 'eleve')
+    ordering = ('quizz', 'eleve')
+    search_fields = ('quizz', 'eleve')
+
 admin.site.register(Quizz, QuizzAdmin)
 admin.site.register(Instance_quizz, Instance_quizzAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Reponse_possible, Reponse_possibleAdmin)
 admin.site.register(Reponse, ReponseAdmin)
-admin.site.register(DemandeQuizz)
+admin.site.register(DemandeQuizz, DemandeQuizzAdmin)

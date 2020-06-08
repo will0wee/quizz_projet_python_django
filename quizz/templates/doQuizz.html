@@ -1,0 +1,45 @@
+{% load static %}
+
+{% include "navigation.html" %}
+
+<div class="row  border-bottom white-bg dashboard-header">
+    {% for element in banner %}
+    {% if element.id is not None %}
+    <a href='{% url element.url element.id %}'>{{element.libelle}}</a> /
+    {% else %}
+    <a href='{% url element.url %}'>{{element.libelle}}</a> /
+    {% endif %}
+    {% endfor %}
+    <a href='#'>{{currentElement}}</a>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox ">
+        <div class="ibox-content">
+            <h2>{{currentQuestion.libelle}} :</h2>
+            <form class="m-t" role="form" action='{% url "faire_quizz" idQuizz question %}' method="POST">
+                {% csrf_token %}
+                <label class="col-sm-1 m-t-xs">Réponse : </label>
+                <div class="col-sm-11">
+                    {{form.reponse}}
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-sm-1">
+                    {% if question != 1 %}
+                    <a href='{% url "faire_quizz" idQuizz previousQuestion %}' class="btn btn-success">Précédent</a>
+                    {% endif %}
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-primary">Valider</button>
+                    {% if question != sizeQuestion %}
+                    <a href='{% url "faire_quizz" idQuizz nextQuestion %}' class="btn btn-success">Suivant</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}
+</html>

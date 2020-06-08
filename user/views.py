@@ -3,13 +3,34 @@ from .authenticator import Authenticator
 from .forms import LoginForm, UserForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from quizz.models import DemandeQuizz, Instance_quizz, Reponse, Reponse_possible
 from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    if request.session.get("userId", 0) == 0 :
+    if request.session.get("userId", 0) == 0:
         return redirect("login")
-    return render(request, 'home.html', {'currentElement': 'Acceuil', 'user': {'userFirstName': request.session.get('userFirstName'), 'userLastName': request.session.get('userLastName'), 'userTypeLibelle': request.session.get('userTypeLibelle', 'test')}})
+    lstDemande = DemandeQuizz.objects.filter(eleve=User.objects.filter(id=request.session.get("userId"))[0]).select_related('quizz')
+    lstInstance = Instance_quizz.objects.filter(eleve=User.objects.filter(id=request.session.get("userId"))[0]).select_related('quizz')
+    lstResult = []
+    for element in lstInstance:
+        data = {'max': len(Reponse.objects.filter(instance_quizz=element)),
+                'note': len(Reponse.objects.select_related('reponse').filter(reponse__valeur=1, instance_quizz=element)),
+                'instance': element}
+        lstResult.append(data)
+
+
+    return render(request, 'home.html', {'currentElement': 'Acceuil',
+                                         'user': {'userFirstName': request.session.get('userFirstName'),
+                                                  'userLastName': request.session.get('userLastName'),
+                                                  'userTypeLibelle': request.session.get('userTypeLibelle', 'test'),
+                                                  'userType': request.session.get('userType', 1)
+                                                  },
+                                         'lstDemande': lstDemande,
+                                         'lstInstance': lstInstance,
+                                         'type': type,
+                                         'lstResult': lstResult
+                                         })
 
 
 def login(request):

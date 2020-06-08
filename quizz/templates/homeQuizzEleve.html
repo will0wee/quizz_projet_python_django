@@ -25,9 +25,9 @@
                 <tbody>
                 {% for element in data.lstQuizz %}
                     <tr>
-                        <td><span class="line">{{element.libelle}}</span></td>
+                        <td><span class="line">{{element.quizz.libelle}}</span></td>
                         <td>
-                            <a href='{% url "faire_quizz" element.id %}' title="faire" class="btn btn-circle btn-success"><i class="fa fa-pencil"></i></a>
+                            <a href='{% url "create_quizz" element.quizz.id %}' title="faire" class="btn btn-circle btn-success"><i class="fa fa-pencil"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

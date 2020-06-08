@@ -16,107 +16,51 @@
 
     <div class="col-lg-2"></div>
     <div class="col-lg-8">
+    {% if user.userType == 1 %} <!-- cas de l'affichage de la HomePage de l'élève-->
+        {% for element in lstDemande %}
+            <a class="col-lg-4" href='{% url "create_quizz" element.quizz.id %}'>
+                <div class="widget red-bg p-lg text-center">
+                    <div class="m-b-md">
+                        <i class="fa fa-file-text fa-4x"></i>
+                        <h1 class="m-xs">A faire</h1>
+                        <h3 class="font-bold no-margins">
+                            {{ element.quizz.libelle }}
+                        </h3>
+                        <small>{{ element.quizz.professeur.last_name }} {{ element.quizz.professeur.first_name }}</small>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
 
-    {% if False %} <!-- cas de l'affichage de la HomePage de l'élève-->
+        {% for element in lstResult %}
+            <a class="col-lg-4" href='{% url "quizz_detail" element.instance.quizz.id %}'>
+                <div class="widget navy-bg p-lg text-center">
+                    <div class="m-b-md">
+                        <i class="fa fa-file-text fa-4x"></i>
+                        <h1 class="m-xs">{{element.note}}/{{element.max}}</h1>
+                        <h3 class="font-bold no-margins">
+                            {{ element.instance.quizz.libelle }}
+                        </h3>
+                        <small>{{ element.instance.quizz.professeur.last_name }} {{ element.instance.quizz.professeur.first_name }}</small>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+    {% if user.userType == 2 %} <!-- cas de l'affichage de la HomePage du professeur-->
 
-<div class="col-lg-4">
-    <a href='{% url "quizz_detail" 1 %}'><div class="widget navy-bg p-lg text-center">
-        <div class="m-b-md">
-            <i class="fa fa-file-text fa-4x"></i>
-            <h1 class="m-xs">15/20</h1>
-            <h3 class="font-bold no-margins">
-                QCM Français
-            </h3>
-            <small>Fatah Ouli</small>
+    <a href='{% url "liste_instance_quizz" 1 %}'>
+        <div class="widget navy-bg p-lg text-center">
+            <div class="m-b-md">
+                <i class="fa fa-file-text fa-4x"></i>
+                <h1 class="m-xs">13/20</h1>
+                <h3 class="font-bold no-margins">
+                    QCM react
+                </h3>
+                <small>Julien Mafar</small>
+            </div>
         </div>
-    </div></a>
-    </br>
-    <a href='{% url "quizz_detail" 2 %}'><div class="widget navy-bg p-lg text-center">
-        <div class="m-b-md">
-            <i class="fa fa-file-text fa-4x"></i>
-            <h1 class="m-xs">13/20</h1>
-            <h3 class="font-bold no-margins">
-                QCM react
-            </h3>
-            <small>Julien Mafar</small>
-        </div>
-    </div></a>
-
-</div>
-
-<div class="col-lg-4">
-    <a href='{% url "quizz_detail" 3 %}'><div class="widget navy-bg p-lg text-center">
-        <div class="m-b-md">
-            <i class="fa fa-file-text fa-4x"></i>
-            <h1 class="m-xs">15/20</h1>
-            <h3 class="font-bold no-margins">
-                QCM Français
-            </h3>
-            <small>Fatah Ouli</small>
-        </div>
-    </div></a>
-    </br>
-    <a href='{% url "quizz_detail" 4 %}'><div class="widget navy-bg p-lg text-center">
-        <div class="m-b-md">
-            <i class="fa fa-file-text fa-4x"></i>
-            <h1 class="m-xs">13/20</h1>
-            <h3 class="font-bold no-margins">
-                QCM react
-            </h3>
-            <small>Julien Mafar</small>
-        </div>
-    </div></a>
-   
-
-</div>
-
-<div class="col-lg-4">
-    <a href='{% url "quizz_detail" 5 %}'><div class="widget navy-bg p-lg text-center">
-        <div class="m-b-md">
-            <i class="fa fa-file-text fa-4x"></i>
-            <h1 class="m-xs">15/20</h1>
-            <h3 class="font-bold no-margins">
-                QCM Français
-            </h3>
-            <small>Fatah Ouli</small>
-        </div>
-    </div></a>
-    </br>
-    <a href='{% url "quizz_detail" 6 %}'><div class="widget navy-bg p-lg text-center">
-        <div class="m-b-md">
-            <i class="fa fa-file-text fa-4x"></i>
-            <h1 class="m-xs">13/20</h1>
-            <h3 class="font-bold no-margins">
-                QCM react
-            </h3>
-            <small>Julien Mafar</small>
-        </div>
-    </div></a>
-
-</div>
-
-{% endif %}
-
-
-{% if True %} <!-- cas de l'affichage de la HomePage du professeur-->
-
-<div class="col-lg-12">
-    
-    <a href='{% url "liste_instance_quizz" 1 %}'><div class="widget navy-bg p-lg text-center">
-        <div class="m-b-md">
-            <i class="fa fa-file-text fa-4x"></i>
-            <h1 class="m-xs">13/20</h1>
-            <h3 class="font-bold no-margins">
-                QCM react
-            </h3>
-            <small>Julien Mafar</small>
-        </div>
-    </div></a>
-   
-
-</div>
-
-<div class="col-lg-12">
+    </a>
     <a href='{% url "liste_instance_quizz" 2 %}'><div class="widget navy-bg p-lg text-center">
         <div class="m-b-md">
             <i class="fa fa-file-text fa-4x"></i>
@@ -126,17 +70,12 @@
             </h3>
             <small>Fatah Ouli</small>
         </div>
-    </div></a>
-
-</div>
-
-{% endif %}
-
-</div>
-
-    <div class="col-lg-1">
     </div>
-    </div>
+    </a>
+    {% endif %}
+
+    <div class="col-lg-2"></div>
+</div>
 
 {% include "footer.html" %}
 </html>
