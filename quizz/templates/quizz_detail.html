@@ -16,7 +16,7 @@
     <div class="ibox ">
         <div class="ibox-content">
             <h2>
-                Détail du quizz <span class="text-navy">“Quizz {{idQuizz}}”</span>
+                Détail des réponses de : <span class="text-navy">{{quizz.libelle}}</span>
             </h2>
 
             <div class="search-form">
@@ -25,36 +25,23 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Question</th>
                     <th>Reponse</th>
                     <th>Valeur</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% for element in lstReponse %}
                 <tr>
-                    <td>1</td>
-                    <td><span class="line">De quelle couleur est le cheval blanc d'Henry IV?</span></td>
-                    <td>Vert</td>
+                    <td><span class="line">{{element.question.libelle}}</span></td>
+                    <td>{{element.reponse.libelle}}</td>
+                    {% if element.reponse.valeur == 0 %}
                     <td class="text-warning"> FAUX </td>
+                    {% else %}
+                    <td class="text-info"> VRAI </td>
+                    {% endif %}
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td><span class="line">2 + 2</span></td>
-                    <td>4</td>
-                    <td class="text-navy">  VRAI </td>
-                </tr>
-                <tr>
-                    
-                    <td rowspan="2">3</td>
-                    <td rowspan="2"><span class="line">Etes-vous chez Hitema?</span></td>
-                    <td>Oui</td>
-                    <td class="text-navy"> VRAI </td>
-                </tr>
-                <tr>
-                    <td>Mais pas trop</td>
-                    <td class="text-navy"> VRAI </td>
-                </tr>
+                {% endfor %}
                 </tbody>
             </table>
             </div>

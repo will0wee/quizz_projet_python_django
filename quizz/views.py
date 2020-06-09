@@ -23,13 +23,16 @@ def detail(request, idQuizz):
         banner = [
             {'libelle': "Home", 'url': "home"}
         ]
-    return render(request, 'quizz_detail.html', {'idQuizz': idQuizz,
+    quizz = Instance_quizz.objects.filter(id=idQuizz).first()
+    lstReponse = Reponse.objects.filter(instance_quizz=quizz)
+    return render(request, 'quizz_detail.html', {'quizz': quizz,
                                                  'banner': banner,
                                                  'currentElement': 'Détail du quizz',
                                                  'user': {'userFirstName': request.session.get('userFirstName'),
                                                          'userLastName': request.session.get('userLastName'),
                                                          'userTypeLibelle': request.session.get('userTypeLibelle')
-                                                         }})
+                                                         },
+                                                 'lstReponse': lstReponse})
 
 def instancesQuizz(request, idQuizz):
     if request.session['userId'] is None:
@@ -37,14 +40,28 @@ def instancesQuizz(request, idQuizz):
     banner = [
         {'libelle': "Home", 'url': "home"}
     ]
-    return render(request, 'listeInstanceQuizz.html', {'idQuizz': idQuizz,
-                                                       'banner': banner,
+    quizz = Quizz.objects.filter(id=idQuizz).first()
+    lstInstance = Instance_quizz.objects.filter(quizz=quizz)
+    lstResult = []
+    for element in lstInstance:
+        max = len(Reponse.objects.filter(instance_quizz=element))
+        if max == 0:
+            note = '-'
+        else:
+            note = len(
+                Reponse.objects.select_related('reponse').filter(reponse__valeur=1, instance_quizz=element)) * 20 / max
+        data = {'note': note,
+                'instance': element}
+        lstResult.append(data)
+    return render(request, 'listeInstanceQuizz.html', {'banner': banner,
                                                        'currentElement': 'Liste des instance de quizz',
                                                        'user': {'userFirstName': request.session.get('userFirstName'),
                                                                 'userLastName': request.session.get('userLastName'),
                                                                 'userTypeLibelle': request.session.get(
                                                                     'userTypeLibelle')
-                                                                }})
+                                                                },
+                                                       'quizz': quizz,
+                                                       'lstInstanceQuizz': lstResult})
 @csrf_protect
 def homeQuizz(request):
     logger = logging.getLogger('app_api')

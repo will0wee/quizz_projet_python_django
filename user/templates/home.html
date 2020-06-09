@@ -17,7 +17,7 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
             {% if user.userType == 1 %} <!-- cas de l'affichage de la HomePage de l'élève-->
-                {% for element in lstDemande %}
+                {% for element in data.lstDemande %}
                     <a class="col-lg-4" href='{% url "create_quizz" element.quizz.id %}'>
                         <div class="widget red-bg p-lg text-center">
                             <div class="m-b-md">
@@ -32,8 +32,12 @@
                     </a>
                 {% endfor %}
 
-                {% for element in lstResult %}
-                    <a class="col-lg-4" href='{% url "quizz_detail" element.instance.quizz.id %}'>
+                {% for element in data.lstResult %}
+                    {% if element.note == '-' %}
+                    <a class="col-lg-4">
+                    {% else %}
+                    <a class="col-lg-4" href='{% url "quizz_detail" element.instance.id %}'>
+                    {% endif %}
                         <div class="widget navy-bg p-lg text-center">
                             <div class="m-b-md">
                                 <i class="fa fa-file-text fa-4x"></i>
@@ -49,30 +53,19 @@
             </div>
             {% endif %}
             {% if user.userType == 2 %} <!-- cas de l'affichage de la HomePage du professeur-->
-                <a href='{% url "liste_instance_quizz" 1 %}'>
+                {% for element in data %}
+                <a href='{% url "liste_instance_quizz" element.quizz.id %}'>
                     <div class="widget navy-bg p-lg text-center">
                         <div class="m-b-md">
                             <i class="fa fa-file-text fa-4x"></i>
-                            <h1 class="m-xs">13/20</h1>
+                            <h1 class="m-xs">{{element.note}}/20</h1>
                             <h3 class="font-bold no-margins">
-                                QCM react
+                                {{element.quizz.libelle}}
                             </h3>
-                            <small>Julien Mafar</small>
                         </div>
                     </div>
                 </a>
-                <a href='{% url "liste_instance_quizz" 2 %}'>
-                    <div class="widget navy-bg p-lg text-center">
-                        <div class="m-b-md">
-                            <i class="fa fa-file-text fa-4x"></i>
-                            <h1 class="m-xs">15/20</h1>
-                            <h3 class="font-bold no-margins">
-                                QCM Français
-                            </h3>
-                            <small>Fatah Ouli</small>
-                        </div>
-                    </div>
-                </a>
+                {% endfor %}
             {% endif %}
 
             <div class="col-lg-2"></div>
