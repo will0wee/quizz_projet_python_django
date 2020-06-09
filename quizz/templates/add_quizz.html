@@ -31,9 +31,12 @@
                             <div class="tab-content">
                                 <div role="tabpanel" id="tab-1" class="tab-pane active">
                                     <div class="panel-body">
-
                                         <div class="form-group row">
+                                            {% if idQuizz is not None %}
                                             <form class="m-t" role="form" action='{% url "add_quizz" idQuizz %}' method="POST">
+                                            {% else %}
+                                            <form class="m-t" role="form" action='{% url "add_quizz" %}' method="POST">
+                                            {% endif %}
                                                 {% csrf_token %}
                                                  <div class="form-group">
                                                     {{ form.libelle }}
@@ -48,7 +51,11 @@
                                 <div role="tabpanel" id="tab-2" class="tab-pane">
                                     <div class="panel-body">
                                         <div class="form-group row">
+                                            {% if idQuizz is not None %}
                                             <form class="m-t" role="form" action='{% url "add_quizz" idQuizz %}' method="POST">
+                                            {% else %}
+                                            <form class="m-t" role="form" action='{% url "add_quizz" %}' method="POST">
+                                            {% endif %}
                                                 {% csrf_token %}
                                                 <div class="form-group">
                                                     {{ formQuestion.libelle }}
@@ -101,7 +108,6 @@
                                                     <button type="submit" name="submitReponse" class="btn btn-w-m btn-primary">Enregistrer</button>
                                                 </form>
                                             </div>
-                                            <div style="text-align: center"><button type="button" class="btn btn-block btn-outline btn-primary">Ajouter</button></div>
                                              <br>
                                             <div class="hr-line-dashed"></div>
                                         <div class="col-lg-6">

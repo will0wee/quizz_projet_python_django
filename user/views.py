@@ -3,13 +3,55 @@ from .authenticator import Authenticator
 from .forms import LoginForm, UserForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from quizz.models import DemandeQuizz, Instance_quizz, Reponse, Reponse_possible, Quizz
 from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    if request.session.get("userId", 0) == 0 :
+    if request.session.get("userId", 0) == 0:
         return redirect("login")
-    return render(request, 'home.html', {'currentElement': 'Acceuil', 'user': {'userFirstName': request.session.get('userFirstName'), 'userLastName': request.session.get('userLastName'), 'userTypeLibelle': request.session.get('userTypeLibelle', 'test')}})
+    if request.session.get("userType", 1) == 1:
+        lstDemande = DemandeQuizz.objects.filter(eleve=User.objects.filter(id=request.session.get("userId"))[0]).select_related('quizz')
+        lstInstance = Instance_quizz.objects.filter(eleve=User.objects.filter(id=request.session.get("userId"))[0]).select_related('quizz')
+        lstResult = []
+        for element in lstInstance:
+            max = len(Reponse.objects.filter(instance_quizz=element))
+            if max == 0:
+                note = '-'
+            else:
+                note = len(Reponse.objects.select_related('reponse').filter(reponse__valeur=1, instance_quizz=element)) * 20 / max
+            data = {'note': note,
+                    'instance': element}
+            lstResult.append(data)
+        data = {'lstDemande': lstDemande, 'lstInstance': lstInstance, 'lstResult': lstResult}
+    else:
+        quizzs = Quizz.objects.filter(professeur=User.objects.filter(id=request.session.get("userId"))[0])
+        data = []
+        for quizz in quizzs:
+            lstInstance = Instance_quizz.objects.filter(quizz=quizz)
+            noteInstance = []
+            for element in lstInstance:
+                max = len(Reponse.objects.filter(instance_quizz=element))
+                if max != 0:
+                    noteInstance.append(len(Reponse.objects.select_related('reponse').filter(reponse__valeur=1,
+                                                                                instance_quizz=element)) * 20 / max)
+            if len(noteInstance) != 0:
+                note = sum(noteInstance) / len(noteInstance)
+            else:
+                note = '-'
+            data.append({'quizz': quizz, 'note': note})
+
+
+
+    return render(request, 'home.html', {'currentElement': 'Acceuil',
+                                         'user': {'userFirstName': request.session.get('userFirstName'),
+                                                  'userLastName': request.session.get('userLastName'),
+                                                  'userTypeLibelle': request.session.get('userTypeLibelle', 'test'),
+                                                  'userType': request.session.get('userType', 1)
+                                                  },
+                                         'type': type,
+                                         'data': data
+                                         })
 
 
 def login(request):

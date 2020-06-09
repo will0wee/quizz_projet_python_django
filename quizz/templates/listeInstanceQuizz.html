@@ -16,11 +16,9 @@
     <div class="ibox ">
         <div class="ibox-content">
             <h2>
-                Détail du quizz <span class="text-navy">“Quizz {{idQuizz}}”</span>
+                Détail du quizz : <span class="text-navy">{{quizz.libelle}}</span>
             </h2>
 
-            <div class="search-form">
-            </div>
             <div class="hr-line-dashed"></div>
                 <table class="table table-striped">
                     <thead>
@@ -34,44 +32,24 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for element in lstInstanceQuizz %}
                     <tr>
-                        <td>1</td>
-                        <td><span class="line">QCM de React</span></td>
-                        <td>Erwann KILAHY</td>
-                        <td>05/06/2020</td>
-                        <td class="text-navy"> 16/20 </td>
+                        <td>{{element.instance.id}}</td>
+                        <td><span class="line">{{element.instance.quizz.libelle}}</span></td>
+                        <td>{{element.instance.eleve.first_name}} {{element.instance.eleve.last_name}}</td>
+                        <td>{{element.instance.date}}</td>
+                        {% if element.note == '-' or element.note >= 10 %}
+                        <td class="text-navy"> {{element.note}}/20 </td>
+                        {% else %}
+                        <td class="text-danger"> {{element.note}}/20 </td>
+                        {% endif %}
                         <td>
-                            <a href='{% url "quizz_detail" 1 %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
+                            {% if element.note != '-' %}
+                            <a href='{% url "quizz_detail" element.instance.id %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
+                            {% endif %}
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><span class="line">QCM de NodeJS</span></td>
-                        <td>Damien POPIEL</td>
-                        <td>05/06/2020</td>
-                        <td class="text-navy">  19/20 </td>
-                        <td>
-                            <a href='{% url "quizz_detail" 2 %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-
-                        <td rowspan="2">3</td>
-                        <td rowspan="2"><span class="line">QCM de Django</span></td>
-                        <td rowspan="2">Nicolas LAUNOY</td>
-                        <td>05/06/2020</td>
-                        <td class="text-warning"> 06/20 </td>
-                        <td>
-                            <a href='{% url "quizz_detail" 3 %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>08/06/2020</td>
-                        <td class="text-navy"> 15/20 </td>
-                        <td>
-                            <a href='{% url "quizz_detail" 4 %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-search"></i></a>
-                        </td>
-                    </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

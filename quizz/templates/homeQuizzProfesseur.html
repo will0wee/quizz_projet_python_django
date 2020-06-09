@@ -1,0 +1,129 @@
+{% load static %}
+
+{% include "navigation.html" %}
+
+<div class="row  border-bottom white-bg dashboard-header">
+    {% for element in banner %}
+    {% if element.id is not None %}
+    <a href='{% url element.url element.id %}'>{{element.libelle}}</a> /
+    {% else %}
+    <a href='{% url element.url %}'>{{element.libelle}}</a> /
+    {% endif %}
+    {% endfor %}
+    <a href='#'>{{currentElement}}</a>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="ibox ">
+        <div class="ibox-content">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Quizz</th>
+                        <th>Nombre de quizz en attente</th>
+                        <th>Nombre de quizz terminé</th>
+                        <th>Moyenne</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for element in data.lstQuizz %}
+                    <tr>
+                        <td><span class="line">{{element.libelle}}</span></td>
+                        <td>{{element.nbAttente}}</td>
+                        <td>{{element.nbTermine}}</td>
+                        <td class="text-navy"> 16/20 </td>
+                        <td>
+                            <a href='{% url "quizz_detail" element.id %}' title="detail" class="btn btn-circle btn-success"><i class="fa fa-pencil"></i></a>
+                            <button type="button" class="btn btn-circle btn-success" data-toggle="modal" data-id="{{element.id}}" data-target="#addDemande"><i class="fa fa-plus"></i></button>
+                            <a href='{% url "deleteQuizz" 1 %}' title="delete" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button type="button" class="btn btn-primary">Ajouter un quizz</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="addDemande" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form class="m-t" role="form form-horizontal" action='{% url "listeClassRoom" %}' method="POST">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+                    <h4 class="modal-title">Ajouter une demande de quizz</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Classes : </label>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Ajout</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for classe in data.classes %}
+                                <tr>
+                                    <td>
+                                        {{classe.libelle}}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="classe[{{classe.id}}]">
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="hr-line-dashed"></div>
+                    <label>Eleves : </label>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Ajout</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eleve in data.eleves %}
+                                <tr>
+                                    <td>
+                                        {{eleve.user.last_name}}
+                                    </td>
+                                    <td>
+                                        {{eleve.user.first_name}}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="eleve[{{eleve.user.id}}]">
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="idQuizz" id="idQuizz">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder la modification</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $('#addDemande').on('show.bs.modal', function (e) {
+            var button = $(e.relatedTarget);
+            var id = button.data('id');
+            console.log(id);
+            $('#idQuizz').val(id);
+        })
+    })
+</script>
+ {% include "footer.html" %}
+</html>
