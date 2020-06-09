@@ -16,6 +16,7 @@ L'application comporte deux type d'utilisateurs, qui sont les Professeurs et les
   
   # Details du projet
   >>User
+  
     • Une page de login est faite afin de se connecter au site. Seul l'administrateur peut créer un compte pour qu'un utilisateur puisse se connecter.
   
     • Apres la page de connexion de l'utilisateur, ce dernier atteindra la page Home. Cette page permet principalement aux étudiants d'accéder à leurs nouveau quizz organisé . Les professeurs, eux, pourront voir les quizz créés.
