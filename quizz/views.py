@@ -110,7 +110,7 @@ def add(request, idQuizz = None):
     if form.is_valid() and 'submitQuizz' in request.POST:
         monQuizz = Quizz(libelle = form.cleaned_data['libelle'], professeur = User.objects.filter(id=request.session.get("userId"))[0])
         monQuizz.save()
-        return HttpResponse("hello3")
+
         idQuizz = Quizz.objects.latest("id")
         return redirect('add_quizz', idQuizz)
     currentElement = "ajout d'un quizz"
@@ -121,18 +121,19 @@ def add(request, idQuizz = None):
     if formQuestion.is_valid() and 'submitQuestion' in request.POST and idQuizz is not None :
         maQuestion = Question(libelle = form.cleaned_data['libelle'], quizz = Quizz.objects.filter(id=idQuizz)[0])
         maQuestion.save()
-        return HttpResponse("hello2")
+
     questions = Question.objects.raw("SELECT * from quizz_question")
 
 
     formReponse = ReponsePossibleForm(request.POST or None)
-    formReponse.fields["question"].queryset = Question.objects.filter(quizz = Quizz.objects.filter(id=idQuizz)[0])
+    if idQuizz is not None :
+        formReponse.fields["question"].queryset = Question.objects.filter(quizz = Quizz.objects.filter(id=idQuizz)[0])
 
     if formReponse.is_valid() and 'submitReponse' in request.POST and idQuizz is not None :
         maReponse = Reponse_possible(libelle = formReponse.cleaned_data['libelle'], valeur = formReponse.cleaned_data['valeur'], question = formReponse.cleaned_data['question'])
         maReponse.save()
 
-    reponses = Reponse_possible.objects.raw("SELECT * from Reponse_possible")
+    reponses = Reponse_possible.objects.raw("SELECT * from quizz_reponse_possible")
     return render(request, 'add_quizz.html', locals())
 
 def create_quizz(request, idQuizz):

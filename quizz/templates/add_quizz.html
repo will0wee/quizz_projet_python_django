@@ -21,7 +21,7 @@
             <div class="wrapper wrapper-content animated fadeIn">
 
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <div class="tabs-container">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li><a class="nav-link active" data-toggle="tab" href="#tab-1"> Libellé</a></li>
@@ -88,29 +88,34 @@
                                         <div class="col-md-6" data-select2-id="10">
 
 
-                                            <div class="form-group row">
+                                            <div class="form-group row col-lg-12">
 
-
+                                                {% if idQuizz is not None %}
                                                 <form class="m-t" role="form" action='{% url "add_quizz" idQuizz %}' method="POST">
-                                                    {% csrf_token %}
+                                                {% else %}
+                                                <form class="m-t" role="form" action='{% url "add_quizz"  %}' method="POST">
+                                                {% endif %}
+
+                                                {% csrf_token %}
                                                     <p>
                                                         Selectionnez votre questions :
                                                     </p>
                                                     <div class="form-group">
                                                     {{ formReponse.question}}
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group col-lg-6">
                                                         {{ formReponse.libelle }}
-                                                    </div>
-                                                    <div class="form-group">
+                                                        <label>Cocher si VRAI</label>
                                                         {{ formReponse.valeur }}
                                                     </div>
-                                                    <button type="submit" name="submitReponse" class="btn btn-w-m btn-primary">Enregistrer</button>
+                                                    <div class="form-group col-lg-12" >
+                                                        <button type="submit" name="submitReponse" class="btn btn-w-m btn-primary">Enregistrer</button>
+                                                    </div>
                                                 </form>
                                             </div>
                                              <br>
                                             <div class="hr-line-dashed"></div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-12">
                                             <div class="ibox ">
                                                 <h5> Vos réponses</h5>
                                                 <div>
@@ -118,7 +123,9 @@
                                                     <table class="table">
                                                         <tbody>
                                                         <tr>
-
+                                                            {% for n in reponses %}
+                                                            <li>{{ n.libelle }}</li>
+                                                            {% endfor %}
                                                         </tr>
                                                         </tbody>
                                                     </table>
